@@ -38,7 +38,7 @@ class ProductTransactionResource extends Resource
     {
         return $form
             ->schema([
-
+//(Wizard::make)ini membuat menjadi beberapa step yang ada nextnya itu
                 Wizard::make([
                     Step::make('Product and Price')
                     ->schema([
@@ -55,7 +55,14 @@ class ProductTransactionResource extends Resource
                             ->afterStateUpdated(function( $state, callable $get, callable $set){
 
                                 $shoe = Shoe::find($state);
+
+                                /* ini merupakan ternary operation dengan logika
+                                seperti ini
+                                if ($shoe){maka $shoe->price akan dieksekusi}
+                                */
+
                                 $price = $shoe ? $shoe->price : 0;
+                                //ini untuk get data dari quantity jadi pricenya bisa diubah secara langsung
                                 $quantity = $get('quantity') ?? 1;
                                 $subTotalAmount = $price * $quantity;
 
@@ -66,6 +73,10 @@ class ProductTransactionResource extends Resource
                                 $grandTotalAmount = $subTotalAmount - $discount;
                                 $set ('grand_total_amount', $grandTotalAmount);
 
+
+                                // tanda "?" ini merupakan opertator ternary seperti if-else
+                                //  jadi dibacanya apabila $shoe itu exist maka method setelah tanda ? akan dieksekusi
+                                //namun jika $shoe tidak exist maka akan dieksekusi method setelah : yaitu [] atau array kosong
                                 $sizes = $shoe ? $shoe->sizes->pluck('size', 'id')->toArray() : [];
                                 $set('shoe_sizes', $sizes);
                             })

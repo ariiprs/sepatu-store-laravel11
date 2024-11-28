@@ -6,9 +6,11 @@ use App\Filament\Resources\PromoCodeResource\Pages;
 use App\Filament\Resources\PromoCodeResource\RelationManagers;
 use App\Models\PromoCode;
 use Filament\Forms;
+use Filament\Forms\Components\TextInput;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
 use Filament\Tables;
+use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
@@ -23,7 +25,15 @@ class PromoCodeResource extends Resource
     {
         return $form
             ->schema([
-                //
+                TextInput::make('code')
+                ->required()
+                ->maxLength(255),
+
+                TextInput::make('discount_amount')
+                ->required()
+                ->numeric()
+                ->prefix('IDR'),
+
             ]);
     }
 
@@ -31,13 +41,15 @@ class PromoCodeResource extends Resource
     {
         return $table
             ->columns([
-                //
+                TextColumn::make('code')
+                    ->searchable(),
             ])
             ->filters([
                 //
             ])
             ->actions([
                 Tables\Actions\EditAction::make(),
+                Tables\Actions\ViewAction::make(),
             ])
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([

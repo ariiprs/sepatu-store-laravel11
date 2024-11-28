@@ -33,7 +33,7 @@ class ShoeResource extends Resource
     {
         return $form
             ->schema([
-
+                //ini fieldset pertama
                 Fieldset::make('Details')
                 ->schema([
 
@@ -132,6 +132,7 @@ class ShoeResource extends Resource
             ])
             ->actions([
                 Tables\Actions\EditAction::make(),
+                Tables\Actions\ViewAction::make(),
             ])
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([
