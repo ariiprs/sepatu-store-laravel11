@@ -11,6 +11,19 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
 
 
+
+/*
+    Orderservice class ini berfungsi untuk melakukan order
+
+    1. CategoryRepositoryInterface : getAllCategories
+    2. ShoeRepositoryInterface : getPopularShoes, searchByName, getAllNewShoes,find, getPrice
+    berarti dia ingin ambil semua kategori, sepatu popular, semua sepatu, harga
+    3. OrderRepositoryInterface : saveToSession, getOrderDataFromSession, createTransaction,
+    updateSessionData , findByTrxIdAndPhoneNumber
+    4. PromoCodeRepositoryInterface : findByCode, getAllPromoCode
+    */
+
+
 class OrderService
 {
     protected $categoryRepository;
@@ -32,20 +45,28 @@ class OrderService
         $this->promoCodeRepository = $promoCodeRepository;
     }
 
-    public function beginOrder(array $data)
+    public function beginOrder(array $data) //memulai order / tahapan pertama order
     {
+        /* ini dipilih karna pada user interface saat pertama kali order
+        itu harus memilih size pada salah satu sepatu yang diinginkan.
+        */
         $orderData = [
             'shoe_size' => $data['shoe_size'],
             'size_id' => $data['size_id'],
             'shoe_id' => $data['shoe_id'],
         ];
 
+        //menyimpan data ke session
         $this->orderRepository->saveToSession($orderData);
     }
 
     public function getOderDetails()
     {
+        //mengambil data dari session yang sudah dibuat dari function beginOrder
         $orderData = $this->orderRepository->getOrderDataFromSession();
+
+        //mengambil data sepatu menggunakan function shoeRepository yaiut find .
+        //find berdasarkan variabel orderData['shoe_id']
         $shoe = $this->shoeRepository->find($orderData['shoe_id']);
 
         $quantity = isset($orderData['quantity']) ? $orderData['quantity'] : 1;
@@ -66,6 +87,8 @@ class OrderService
     public function applyPromoCode(string $code, int $subTotalAmount)
     {
         $promo = $this->promoCodeRepository->findByCode($code);
+        // $promo = GGGAMING
+        //GGGAMING discount_amount = 100000
 
         if($promo){
             $discount = $promo->discount_amount;

@@ -5,6 +5,15 @@ namespace App\Services;
 use App\Repositories\Contracts\CategoryRepositoryInterface;
 use App\Repositories\Contracts\ShoeRepositoryInterface;
 
+/*
+    Frontservice class ini berfungsi untuk menampilkan data ke bagian frontend
+    1. CategoryRepositoryInterface : getAllCategories
+    2. ShoeRepositoryInterface : getPopularShoes, searchByName, getAllNewShoes,find, getPrice
+
+    berarti dia ingin ambil semua kategori, sepatu popular, semua sepatu, harga
+
+    */
+
 class FrontService
 {
     protected $categoryRepository;
