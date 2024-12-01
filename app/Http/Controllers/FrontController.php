@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Shoe;
 use App\Models\Category;
+use App\Services\FrontService;
 use Illuminate\Http\Request;
 
 class FrontController extends Controller

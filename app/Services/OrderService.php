@@ -45,6 +45,7 @@ class OrderService
         $this->promoCodeRepository = $promoCodeRepository;
     }
 
+
     public function beginOrder(array $data) //memulai order / tahapan pertama order
     {
         /* ini dipilih karna pada user interface saat pertama kali order
@@ -112,6 +113,7 @@ class OrderService
     }
 
 
+    //fungsi ini berfungsi untuk menyimpan semua data pda kolom product_transaction ke database
     public function paymentConfirm (array $validated)
     {
         $orderData = $this->orderRepository->getOrderDataFromSession();
