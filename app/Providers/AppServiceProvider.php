@@ -3,14 +3,14 @@
 namespace App\Providers;
 
 use App\Repositories\CategoryRepository;
+use App\Repositories\OrderRepository;
+use App\Repositories\PromoCodeRepository;
 use App\Repositories\Contracts\CategoryRepositoryInterface;
 use App\Repositories\Contracts\OrderRepositoryInterface;
 use App\Repositories\Contracts\PromoCodeRepositoryInterface;
 use App\Repositories\Contracts\ShoeRepositoryInterface;
-use App\Repositories\OrderRepository;
-use App\Repositories\PromoCodeRepository;
+use App\Repositories\ShoeRepository;
 use Illuminate\Support\ServiceProvider;
-use ShoeRepository;
 
 class AppServiceProvider extends ServiceProvider
 {

@@ -61,7 +61,7 @@ class OrderService
         $this->orderRepository->saveToSession($orderData);
     }
 
-    public function getOderDetails()
+    public function getOrderDetails()
     {
         //mengambil data dari session yang sudah dibuat dari function beginOrder
         $orderData = $this->orderRepository->getOrderDataFromSession();

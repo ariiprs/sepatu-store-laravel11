@@ -30,33 +30,43 @@ class OrderController extends Controller
         return redirect()->route('front.booking', $shoe->slug);
     }
 
+    /* ini menampilkan form input datanya */
     public function booking()
     {
-        $data = $this->orderService->getOderDetails();
-
+        $data = $this->orderService->getOrderDetails();
+        // dd($data);
         return view('order.order', $data);
     }
 
     public function customerData()
     {
-        $data = $this->orderService->getOderDetails();
+        $data = $this->orderService->getOrderDetails();
         return view('order.customer_data', $data);
     }
+    /* ini menampilkan form input datanya */
 
-    public function saveCustomerDate(StoreCustomerDataRequest $request)
+
+    /* ini untuk menyimpan data  */
+    public function saveCustomerData(StoreCustomerDataRequest $request)
     {
         $validated = $request->validated();
         $this->orderService->updateCustomerData($validated);
 
         return redirect()->route('front.payment');
     }
+    /* ini untuk menyimpan data  */
 
+
+    /* ini untuk menampilkan halaman payment */
     public function payment()
     {
-        $data = $this->orderService->getOderDetails();
+        $data = $this->orderService->getOrderDetails();
         return view('order.payment', $data);
     }
+    /* ini untuk menampilkan halaman payment */
 
+
+    /* ini untuk melakukan validasi payment dan juga menyimpan data payment */
     public function paymentConfirm(StorePaymentRequest $request)
     {
         $validated = $request->validated();
@@ -69,6 +79,7 @@ class OrderController extends Controller
 
         return redirect()->route('front.index')->withErrors(['Error' => 'Payment failed, Please try again later']);
     }
+    /* ini untuk melakukan validasi payment dan juga menyimpan data payment */
 
 
     public function orderFinished(ProductTransaction $productTransaction)
