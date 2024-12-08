@@ -41,6 +41,7 @@ class OrderController extends Controller
     public function customerData()
     {
         $data = $this->orderService->getOrderDetails();
+        // dd($data);
         return view('order.customer_data', $data);
     }
     /* ini menampilkan form input datanya */
@@ -61,6 +62,7 @@ class OrderController extends Controller
     public function payment()
     {
         $data = $this->orderService->getOrderDetails();
+        // dd($data);
         return view('order.payment', $data);
     }
     /* ini untuk menampilkan halaman payment */
@@ -70,6 +72,7 @@ class OrderController extends Controller
     public function paymentConfirm(StorePaymentRequest $request)
     {
         $validated = $request->validated();
+        // dd($validated);
 
         $productTransactionId = $this->orderService->paymentConfirm($validated);
 

@@ -9,6 +9,8 @@ use Livewire\Component;
 class OrderForm extends Component
 {
     public Shoe $shoe;
+
+    // dibawah ini merupakan model dari ProductTransaction
     public $orderData;
     public $subTotalAmount;
     public $promoCode = null;
@@ -19,7 +21,7 @@ class OrderForm extends Component
     public $totalDiscountAmount = 0;
     public $name;
     public $email;
-
+    // end
 
     protected $orderService;
 
@@ -47,11 +49,13 @@ class OrderForm extends Component
         $this->calculateTotal();
     }
 
+    // $subtotalAmount dan $grandTotalAmount dihiting di sini
     protected function calculateTotal(): void
     {
         $this->subTotalAmount = $this->shoe->price * $this->quantity;
         $this->grandTotalAmount = $this->subTotalAmount - $this->discount;
     }
+    // end
 
     public function incrementQuantity()
     {
@@ -102,6 +106,44 @@ class OrderForm extends Component
         $this->calculateTotal();
         $this->promoCodeId = null;
         $this->totalDiscountAmount = 0;
+    }
+
+
+    /* Setelah $grandTotalDidapatkan, maka akan dilakukan validasi sebelum disubmit
+    dan yang disubmit di halaman itu hanyalah nama, email , dan quantity sepatu*/
+    public function rules()
+    {
+        return [
+            'name' => 'required|string|max:255',
+            'email' => 'required|email|max:255',
+            'quantity' => 'required|integer|min:1|max:'. $this->shoe->stock,
+        ];
+    }
+
+    public function gatherBookingData(array $validatedData) : array
+    {
+        return [
+            'name' => $validatedData['name'],
+            'email' => $validatedData['email'],
+            'grand_total_amount' => $this->grandTotalAmount,
+            'sub_total_amount' => $this->subTotalAmount,
+            'total_discount_amount' => $this->totalDiscountAmount,
+            'discount' => $this->discount,
+            'promo_code' => $this->promoCode,
+            'promo_code_id' => $this->promoCodeId,
+            'quantity' => $this->quantity,
+        ];
+    }
+
+    public function submit()
+    {
+        $validatedData = $this->validate();
+
+        $bookingData = $this->gatherBookingData($validatedData);
+
+        $this->orderService->updateCustomerData($bookingData);
+
+        return redirect()->route('front.customer_data');
     }
 
     public function render()

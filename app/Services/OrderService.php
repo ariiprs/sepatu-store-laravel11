@@ -145,7 +145,7 @@ class OrderService
                 $validated['quantity'] = $orderData['quantity'];
                 $validated['sub_total_amount'] = $orderData['sub_total_amount'];
                 $validated['grand_total_amount'] = $orderData['grand_total_amount'];
-                $validated['discount_amount'] = $orderData['discount_amount'];
+                $validated['discount_amount'] = $orderData['discount'];
                 $validated['promo_code_id'] = $orderData['promo_code_id'];
                 $validated['shoe_id'] = $orderData['shoe_id'];
                 $validated['shoe_size'] = $orderData['shoe_size'];

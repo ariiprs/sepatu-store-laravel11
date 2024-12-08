@@ -3,7 +3,7 @@
                 <img id="main-thumbnail"
                 src="{{ Storage::url($shoe->photos()->latest()->first()->photo) }}" class="w-full h-full object-contain object-center" alt="thumbnail">
             </div>
-            <for class="flex flex-col gap-5">
+            <form wire:submit.prevent="submit" class="flex flex-col gap-5">
                 <div class="flex flex-col rounded-[20px] p-4 mx-4 pb-5 gap-5 bg-white">
                     <div id="info" class="flex items-center justify-between">
                         <div class="flex flex-col">
@@ -64,7 +64,9 @@
                             <input type="text" wire:model.live.debounce.500ms="promoCode" name="promo" id="promo" class="appearance-none outline-none w-full font-semibold placeholder:font-normal placeholder:text-[#878785] py-[14px]" placeholder="Input the promo code">
                         </div>
 
-                        @if (session()->has('message'))
+                        @if (session()->has('message')) {{-- ini didapatkan dari session yg dilempar di bagian order form ini =
+                        session()->flash('message',
+                        --}}
                             <span class="font-semibold text-sm leading-[21px] text-[#01A625]">Yeay! anda mendapatkan promo spesial</span>
                         @endif
                         @if (session()->has('error'))
@@ -79,7 +81,7 @@
                     </div>
                     <div class="flex items-center justify-between">
                         <p class="font-semibold">Discount</p>
-                        <p id="discount" class="font-bold text-[#FF1943]">- Rp {{ $discount }}</p>
+                        <p id="discount" class="font-bold text-[#FF1943]">- Rp {{ number_format($discount, 0, ',','.') }}</p>
                     </div>
                 </div>
                 <div id="bottom-nav" class="relative flex h-[100px] w-full shrink-0 mt-5">
@@ -90,11 +92,11 @@
                                     Rp {{ number_format($grandTotalAmount, 0, ',','.') }}</p>
                                 <p class="text-sm leading-[21px] text-[#878785]">Grand total</p>
                             </div>
-                            <button type="submit" class="rounded-full p-[12px_20px] bg-[#C5F277] font-bold">
+                            <button class="rounded-full p-[12px_20px] bg-[#C5F277] font-bold">
                                 Continue
                             </button>
                         </div>
                     </div>
                 </div>
-            </for>
+            </form>
 </div>
