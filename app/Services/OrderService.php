@@ -61,6 +61,11 @@ class OrderService
         $this->orderRepository->saveToSession($orderData);
     }
 
+    public function getMyOrderDetails(array $validated)
+    {
+        return $this->orderRepository->findByTrxIdAndPhoneNumber($validated['booking_trx_id'], $validated['phone'] );
+    }
+
     public function getOrderDetails()
     {
         //mengambil data dari session yang sudah dibuat dari function beginOrder
@@ -132,7 +137,6 @@ class OrderService
             DB::transaction(function () use ($validated, &$productTransactionId, $orderData) {
                 if(isset($validated['proof'])){
                     $proofPath = $validated['proof']->store('proofs', 'public');
-                    //yang disimpan hanya nama file nya saja, kalo fotonya di simpan di database
                     $validated['proof'] = $proofPath;
                 }
 
@@ -148,7 +152,7 @@ class OrderService
                 $validated['discount_amount'] = $orderData['discount'];
                 $validated['promo_code_id'] = $orderData['promo_code_id'];
                 $validated['shoe_id'] = $orderData['shoe_id'];
-                $validated['shoe_size'] = $orderData['shoe_size'];
+                $validated['shoe_size'] = $orderData['size_id'];
                 $validated['is_paid'] = false;
                 //ini disetting false karna nanti kita cek dulu beneran udah bayar atau belum
                 $validated['booking_trx_id'] = ProductTransaction::generateUniqueTrxId();
@@ -156,6 +160,9 @@ class OrderService
                 $newTransaction = $this->orderRepository->createTransaction($validated);
 
                 $productTransactionId = $newTransaction->id;
+
+                //ini memiliki kegunaan untuk membersihkan session yang akan diambil supaya ketika memasukan code promo yang tidak terdaftar, itu bisa tidak masuk juga
+                $this->orderRepository->clearSession();
             });
         } catch (\Exception $e) {
             Log::error( 'Error in payment confirmation: ' . $e->getMessage());

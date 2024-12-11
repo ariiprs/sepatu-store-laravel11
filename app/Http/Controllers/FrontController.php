@@ -22,6 +22,18 @@ class FrontController extends Controller
         return view('front.index', $data);
     }
 
+    public function search(Request $request)
+    {
+        $keyword = $request->input('keyword');
+
+        $shoes = $this->frontService->searchShoes($keyword);
+
+        return view('front.search', [
+            'shoes' => $shoes,
+            'keyword' => $keyword,
+        ]);
+    }
+
     public function details(Shoe $shoe) //ini menggunakan konsep model binding
     {
         return view('front.details', compact('shoe'));
