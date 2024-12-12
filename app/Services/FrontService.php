@@ -30,6 +30,11 @@ class FrontService
         return $this->shoeRepository->searchByName($keyword);
     }
 
+    public function searchCategories(string $keyword)
+    {
+        return $this->categoryRepository->searchByName($keyword);
+    }
+
     public function getFrontPageData()
     {
         $categories = $this->categoryRepository->getAllCategories();

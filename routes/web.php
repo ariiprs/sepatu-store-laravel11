@@ -6,7 +6,14 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('', [FrontController::class, 'index'])->name('front.index');
 
+Route::get('/all-category', [FrontController::class, 'allCategory'])->name('front.all_category');
+
+/* ini untuk search sepatu */
 Route::get('/search', [FrontController::class, 'search'])->name('front.search');
+
+Route::get('/contact', [FrontController::class, 'contact'])->name('front.contact');
+
+Route::get('/search-category', [FrontController::class, 'searchCategory'])->name('front.search_category');
 
 Route::get('/browse/{category:slug}', [FrontController::class, 'category'])->name('front.category');
 

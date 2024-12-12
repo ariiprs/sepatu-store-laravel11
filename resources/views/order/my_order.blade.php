@@ -43,11 +43,11 @@
                                     <span class="font-bold text-sm leading-[21px]">My Order</span>
                                 </div>
                             </a>
-                            <a href="#" class="mx-auto w-full">
-                                <img src="{{ asset ('assets/images/icons/star-white.svg') }}" class="w-6 h-6" alt="icon">
+                             <a href="{{ route('front.all_category') }}" class="mx-auto w-full">
+                                <img src="{{asset('assets/images/icons/star-white.svg') }}" class="w-6 h-6" alt="icon">
                             </a>
                             <a href="#" class="mx-auto w-full">
-                                <img src="{{ asset ('assets/images/icons/24-support-white.svg') }}" class="w-6 h-6" alt="icon">
+                                <img src="{{ asset ('assets/images/icons/whatsapp.svg') }}" class="w-6 h-6" alt="icon">
                             </a>
                         </div>
                     </nav>

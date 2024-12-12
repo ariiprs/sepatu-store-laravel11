@@ -22,6 +22,17 @@ class FrontController extends Controller
         return view('front.index', $data);
     }
 
+    public function allCategory()
+    {
+        $data = $this->frontService->getFrontPageData(); // ini menggunakan dependency injection
+        return view('front.all_category', $data);
+    }
+
+    public function contact()
+    {
+        return view('front.contact');
+    }
+
     public function search(Request $request)
     {
         $keyword = $request->input('keyword');
@@ -30,6 +41,18 @@ class FrontController extends Controller
 
         return view('front.search', [
             'shoes' => $shoes,
+            'keyword' => $keyword,
+        ]);
+    }
+
+    public function searchCategory(Request $request)
+    {
+        $keyword = $request->input('keyword');
+
+        $categories = $this->frontService->searchCategories($keyword);
+
+        return view('front.search_category', [
+            'categories' => $categories,
             'keyword' => $keyword,
         ]);
     }

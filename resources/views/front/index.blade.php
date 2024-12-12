@@ -10,7 +10,9 @@
     <body>
         <div class="relative flex flex-col w-full max-w-[640px] min-h-screen gap-5 mx-auto bg-[#F5F5F0]">
             <div id="top-bar" class="flex justify-between items-center px-4 mt-[60px]">
-                <img src="{{asset('assets/images/logos/logo.svg') }}" class="flex shrink-0" alt="logo">
+                <a href="{{ route('front.index') }}">
+                    <img src="{{asset('assets/images/logos/logo.svg') }}" class="flex shrink-0" alt="logo">
+                </a>
                 <a href="#">
                     <img src="{{asset('assets/images/icons/notification.svg') }}" class="w-10 h-10" alt="icon">
                 </a>
@@ -145,11 +147,11 @@
                         <a href="{{ route('front.check_booking') }}" class="mx-auto w-full">
                             <img src="{{asset('assets/images/icons/bag-2-white.svg') }}" class="w-6 h-6" alt="icon">
                         </a>
-                        <a href="#" class="mx-auto w-full">
+                        <a href="{{ route('front.all_category') }}" class="mx-auto w-full">
                             <img src="{{asset('assets/images/icons/star-white.svg') }}" class="w-6 h-6" alt="icon">
                         </a>
-                        <a href="#" class="mx-auto w-full">
-                            <img src="{{asset('assets/images/icons/24-support-white.svg') }}" class="w-6 h-6" alt="icon">
+                        <a href="{{ route('front.contact') }}" class="mx-auto w-full">
+                            <img src="{{asset('assets/images/icons/whatsapp.svg') }}" class="w-6 h-6" alt="icon">
                         </a>
                     </div>
                 </nav>

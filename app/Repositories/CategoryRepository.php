@@ -11,4 +11,9 @@ class CategoryRepository implements CategoryRepositoryInterface
     {
         return Category::latest()->get();
     }
+
+    public function searchByName(string $keyword)
+    {
+        return Category::where('name', 'LIKE', '%' . $keyword . '%')->get();
+    }
 }
