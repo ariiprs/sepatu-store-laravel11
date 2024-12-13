@@ -247,6 +247,10 @@ input:where([type='submit']) {
   /* 2 */
 }
 
+button.logout-button:hover {
+    background-color: #FF2929;
+}
+
 /*
 Use the modern Firefox focus style for all focusable elements.
 */

@@ -13,9 +13,12 @@
                 <a href="{{ route('front.index') }}">
                     <img src="{{asset('assets/images/logos/logo.svg') }}" class="flex shrink-0" alt="logo">
                 </a>
-                <a href="#">
-                    <img src="{{asset('assets/images/icons/notification.svg') }}" class="w-10 h-10" alt="icon">
-                </a>
+                <form method="POST" action="{{ route('logout') }}">
+                            @csrf
+                        <button type="submit" class="logout-button items-center rounded-full gap-[10px] p-[12px_16px] bg-[#C5F277] hover:ring-2 hover:ring-[#FFC700]">
+                            <span class="font-bold text-sm leading-[15px]">Log out</span>
+                        </button>
+                </form>
             </div>
             <form action="{{ route('front.search') }}" class="flex justify-between items-center mx-4">
                 <div class="relative flex items-center w-full rounded-l-full px-[14px] gap-[10px] bg-white transition-all duration-300 focus-within:ring-2 focus-within:ring-[#FFC700]">
